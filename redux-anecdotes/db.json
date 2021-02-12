@@ -29,6 +29,11 @@
       "content": "new from json-server",
       "votes": 4,
       "id": "5hT0p5k"
+    },
+    {
+      "content": "asdf",
+      "votes": 0,
+      "id": "cFfuctm"
     }
   ]
 }
