@@ -20,7 +20,7 @@ const reducer = (state = [], action) => {
   }
 }
 
-// action creator
+// action creator (thunk middleware)
 export const createAnecdote = (content) => {
   return async dispatch => {
     const newAnecdote = await anecdoteServices.createNew(content)
@@ -31,14 +31,19 @@ export const createAnecdote = (content) => {
   }
 }
 
-// action creator
-export const voteTo = (id) => {
-  return ({
-    type: 'VOTE',
-    data: {id}
-  })
+// action creator (thunk middleware)
+export const voteTo = (anecdote) => {
+  return async dispatch => {
+    const newAnecdote = { ...anecdote, votes: anecdote.votes + 1 }
+    await anecdoteServices.updateOne(anecdote.id, newAnecdote)
+    dispatch({
+      type: 'VOTE',
+      data: { id: anecdote.id }
+    })
+  }
 }
 
+// action creator (thunk middleware)
 export const initializeAnecdotes = () => {
   return async dispatch => {
     const anecdotes = await anecdoteServices.getAll()

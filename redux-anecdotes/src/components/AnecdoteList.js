@@ -22,12 +22,14 @@ const AnecdoteList = () => {
     const anecdotes = useSelector(state => state.anecdotes)
     const filter = useSelector(state => state.filter)
 
+    // filter anecdotes by filter specified by the user
     const anecdotesToShow = filter !== ''
         ? anecdotes.filter(anecdote => anecdote.content.includes(filter))
         : anecdotes
 
+    // vote for anecdote
     const voteForAnecdote = (anecdote) => {
-        dispatch(voteTo(anecdote.id)) // increase votes
+        dispatch(voteTo(anecdote)) // increase votes
         dispatch(createNotification(`voted for '${anecdote.content}'`)) // display notification
         setTimeout(() => dispatch(createNotification('')), 3000)
     }
