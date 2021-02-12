@@ -17,10 +17,12 @@ export const clearNotification = () => {
     return { type: 'CLEAR_NOTIFICATION' }
 }
 
-export const setNotification = (notification, duration) => {
+var timeoutID 
+export const setNotification = (notification, delay) => {
     return dispatch => {
         dispatch(createNotification(notification))
-        setTimeout(() => dispatch(clearNotification()), duration)
+        clearTimeout(timeoutID)
+        timeoutID = setTimeout(() => dispatch(clearNotification()), delay)
     }
 }
 
